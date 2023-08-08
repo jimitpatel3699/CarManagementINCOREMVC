@@ -17,7 +17,7 @@ namespace JimitpatelZplusSolutionTest.Repository
         public IEnumerable<CarCreateVM> Search(string search)
         {
             var cars = _context.cars
-                    .Where(model => model.ModelName.Contains(search) || model.ModelCode.Contains(search))
+                    .Where(model => model.ModelName.Contains(search) || model.ModelCode.Contains(search) && model.IsDeleted==false)
                     .ToList();
 
             var carvm = _mapper.Map<IEnumerable<CarCreateVM>>(cars);
