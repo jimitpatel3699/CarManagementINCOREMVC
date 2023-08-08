@@ -1,0 +1,96 @@
+﻿@model JimitpatelZplusSolutionTest.ViewModel.CarCreateVM
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <input type="hidden" asp-for="ImageUrl" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label"></label>
+                <select asp-for="Brand" class="form-control" asp-items="ViewBag.Brand">
+                    <option disabled selected>--Select Category--</option>
+                </select>
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Class" class="control-label"></label>
+                <select asp-for="Class" class="form-control" asp-items="ViewBag.Class">
+                    <option disabled selected>--Select Category--</option>
+                </select>
+                <span asp-validation-for="Class" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelName" class="control-label"></label>
+                <input asp-for="ModelName" class="form-control" />
+                <span asp-validation-for="ModelName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModelCode" class="control-label"></label>
+                <input asp-for="ModelCode" class="form-control" />
+                <span asp-validation-for="ModelCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfManufacturing" class="control-label"></label>
+                <input asp-for="DateOfManufacturing" class="form-control" />
+                <span asp-validation-for="DateOfManufacturing" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <div class="form-check">
+                    <input asp-for="Active" class="form-check-input" />
+                    <label class="form-check-label" for="Active">
+                        Active
+                    </label>
+                </div>
+                <span asp-validation-for="Active" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SortOrder" class="control-label"></label>
+                <input asp-for="SortOrder" class="form-control" />
+                <span asp-validation-for="SortOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input type="file" name="file" asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            @{
+                if (Model!=null && Model.ImageUrl!=null)
+                    {
+                    <div class="form-group mt-2">
+                        <img src="@Model.ImageUrl" width="100%" style="border-radius:5px; border:2px solid #bbb9b9" />
+                    </div>
+                }
+            }
+            <input type="submit" value="Submit" class="btn btn-primary mt-4" />
+            <a asp-controller="Car" asp-action="Index" class="btn btn-secondary mt-4">BacktoList</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ]
+        });
+    </script>
+}
+}
