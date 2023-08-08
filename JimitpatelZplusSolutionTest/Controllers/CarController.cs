@@ -1,10 +1,8 @@
 ﻿using JimitpatelZplusSolutionTest.Enums;
-using JimitpatelZplusSolutionTest.Models;
 using JimitpatelZplusSolutionTest.Repository;
 using JimitpatelZplusSolutionTest.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Drawing;
 
 namespace JimitpatelZplusSolutionTest.Controllers
 {
@@ -12,7 +10,7 @@ namespace JimitpatelZplusSolutionTest.Controllers
     {
         private readonly ICarRepository _carRepository;
         private readonly IWebHostEnvironment _webhostenvironment;
-        public CarController(ICarRepository carRepository,IWebHostEnvironment webHostEnvironment)
+        public CarController(ICarRepository carRepository, IWebHostEnvironment webHostEnvironment)
         {
             _carRepository = carRepository;
             _webhostenvironment = webHostEnvironment;
@@ -22,10 +20,10 @@ namespace JimitpatelZplusSolutionTest.Controllers
             var cars = _carRepository.GetAll();
             return View(cars);
         }
-        public IActionResult Create(int? id) 
+        public IActionResult Create(int? id)
         {
             ViewBag.Class = GetClass();
-            ViewBag.Brand=GetBrand();
+            ViewBag.Brand = GetBrand();
             if (id != null)
             {
                 var cars = _carRepository.Get(id);
@@ -37,7 +35,7 @@ namespace JimitpatelZplusSolutionTest.Controllers
         public IActionResult Create(CarCreateVM cardtl, IFormFile? file)
         {
             long maxFileSizeInBytes = 5 * 1024 * 1024;
-            if (file!=null && file.Length > maxFileSizeInBytes)
+            if (file != null && file.Length > maxFileSizeInBytes)
             {
                 ModelState.AddModelError("file", "File size exceeds the maximum allowed (5MB).");
                 return View(cardtl);
@@ -91,7 +89,7 @@ namespace JimitpatelZplusSolutionTest.Controllers
                         _carRepository.AddCar(cardtl);
                     }
                 }
-                catch(Exception ex) 
+                catch (Exception ex)
                 {
                     ViewBag.Exception = ex;
                 }
@@ -101,21 +99,21 @@ namespace JimitpatelZplusSolutionTest.Controllers
             {
                 return RedirectToAction("Create");
             }
-            
+
         }
         public IActionResult Delete(int? id)
         {
             _carRepository.DeleteCar(id);
             return RedirectToAction("Index");
         }
-        public  IActionResult SearchCar(string search)
+        public IActionResult SearchCar(string search)
         {
             if (string.IsNullOrEmpty(search) == false)
             {
                 var car = _carRepository.Search(search);
                 return PartialView("_Search", car);
             }
-            else 
+            else
             {
                 var car = _carRepository.GetAll();
                 return PartialView("_Search", car);
@@ -131,7 +129,7 @@ namespace JimitpatelZplusSolutionTest.Controllers
             });
             return CategoryList;
         }
-       
+
         [NonAction]
         private IEnumerable<SelectListItem> GetBrand()
         {
@@ -143,5 +141,5 @@ namespace JimitpatelZplusSolutionTest.Controllers
             return CategoryList;
         }
     }
-    
+
 }
