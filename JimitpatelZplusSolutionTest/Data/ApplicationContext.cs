@@ -8,6 +8,5 @@ namespace JimitpatelZplusSolutionTest.Data
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options) { }
         public DbSet<Car> cars { get; set; }
-        public DbSet<JimitpatelZplusSolutionTest.ViewModel.CarCreateVM> CarCreateVM { get; set; } = default!;
     }
 }
